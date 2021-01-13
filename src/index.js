@@ -1,3 +1,7 @@
+import 'react-app-polyfill/stable';
+import 'react-app-polyfill/ie11';
+import '@ui5/webcomponents-base/dist/features/browsersupport/IE11WithWebComponentsPolyfill';
+import '@ui5/webcomponents-react-base/polyfill/IE11';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
