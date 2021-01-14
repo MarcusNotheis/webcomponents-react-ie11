@@ -138,7 +138,19 @@ const styles = {
     fontSize: ThemingParameters.sapFontSize,
     fontWeight: 'normal',
     borderBottom: `1px solid ${ThemingParameters.sapList_BorderColor}`
-  }
+  },
+    valueStateSuccess: {
+        backgroundColor: ThemingParameters.sapSuccessColor
+    },
+    valueStateError: {
+        backgroundColor: ThemingParameters.sapErrorColor
+    },
+    valueStateWarning: {
+        backgroundColor: ThemingParameters.sapWarningColor
+    },
+    valueStateInformation: {
+        backgroundColor: ThemingParameters.sapInformationColor
+    }
 };
 
 export default styles;

@@ -95,8 +95,8 @@ const args = {
     // groupBy: [],
     // rowHeight: 44,
     // selectedRowIds: { 3: true },
-    // withRowHighlight: true,
-    // highlightField: 'status',
+    withRowHighlight: true,
+    highlightField: 'status',
     // infiniteScroll: true,
     // infiniteScrollThreshold: 20,
     // subRowsKey: 'subRows',
@@ -104,8 +104,8 @@ const args = {
     // NoDataComponent: DefaultNoDataComponent,
     // LoadingComponent: DefaultLoadingComponent,
     // scaleWidthMode: TableScaleWidthMode.Default,
-    selectionMode: TableSelectionMode.MULTI_SELECT,
-    selectionBehavior: TableSelectionBehavior.ROW_SELECTOR,
+    // selectionMode: TableSelectionMode.MULTI_SELECT,
+    // selectionBehavior: TableSelectionBehavior.ROW_SELECTOR,
     // overscanCountHorizontal: 5,
     // visibleRowCountMode: TableVisibleRowCountMode.FIXED
 }
