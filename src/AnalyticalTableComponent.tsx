@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {Button, FlexBox, TextAlign} from "@ui5/webcomponents-react";
 import {AnalyticalTable} from "./AnalyticalTable";
 import generateData from "./AnalyticalTable/demo/generateData";
@@ -79,32 +79,52 @@ const columns = [
 ]
 
 const args = {
-    // title: 'Table Title',
-    // sortable: true,
-    // filterable: true,
-    // visibleRows: 15,
-    // minRows: 5,
-    // groupable: true,
+    data: data,
+    columns: columns,
+    title: 'Table Title',
+    sortable: true,
+    filterable: true,
+    visibleRows: 15,
+    minRows: 5,
+    groupable: true,
     // groupBy: [],
     // rowHeight: 44,
-    // selectedRowIds: { 3: true },
-    // withRowHighlight: true,
-    // highlightField: 'status',
-    // infiniteScroll: true,
-    // infiniteScrollThreshold: 20,
-    // subRowsKey: 'subRows',
+    withNavigationHighlight: true,
+    selectedRowIds: { 3: true },
+    withRowHighlight: true,
+    highlightField: 'status',
+    infiniteScroll: true,
+    infiniteScrollThreshold: 20,
+    subRowsKey: 'subRows',
     isTreeTable: true,
-    // NoDataComponent: DefaultNoDataComponent,
-    // LoadingComponent: DefaultLoadingComponent,
-    // scaleWidthMode: TableScaleWidthMode.Default,
-    // selectionMode: TableSelectionMode.MULTI_SELECT,
-    // selectionBehavior: TableSelectionBehavior.ROW_SELECTOR,
-    // overscanCountHorizontal: 5,
-    // visibleRowCountMode: TableVisibleRowCountMode.FIXED
+    NoDataComponent: DefaultNoDataComponent,
+    LoadingComponent: DefaultLoadingComponent,
+    scaleWidthMode: TableScaleWidthMode.Default,
+    selectionMode: TableSelectionMode.MULTI_SELECT,
+    selectionBehavior: TableSelectionBehavior.ROW,
+    overscanCountHorizontal: 5,
+    visibleRowCountMode: TableVisibleRowCountMode.INTERACTIVE
 }
 
 export const AnalyticalTableComponent = () => {
+    const [selectedRow, setSelectedRow] = useState();
+    const onRowSelected = (e) => {
+        setSelectedRow(e.detail.row);
+    };
+    const markNavigatedRow = useCallback(
+        (row) => {
+            return selectedRow?.id === row.id;
+        },
+        [selectedRow]
+    );
     return (
-        <AnalyticalTable data={data} columns={columns} {...args}/>
+        <AnalyticalTable
+            data={args.data}
+            columns={args.columns}
+            withNavigationHighlight
+            selectionMode={args.selectionMode}
+            markNavigatedRow={markNavigatedRow}
+            onRowSelected={onRowSelected}
+        />
     );
 }
