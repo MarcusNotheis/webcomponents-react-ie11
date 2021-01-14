@@ -99,14 +99,16 @@ const columns = (currentColumns, { instance }) => {
     return currentColumns;
   }
 
-  const selectionColumnWidth = tableRef.current
-    ? parseInt(
-        getComputedStyle(tableRef.current).getPropertyValue(
+  const tableSelectionColumnWidth = tableRef.current && parseInt(
+      getComputedStyle(tableRef.current).getPropertyValue(
           `--${CssSizeVariablesNames.sapWcrAnalyticalTableSelectionColumnWidth}`
-        ),
-        10
-      )
+      ),
+      10
+  );
+  const selectionColumnWidth =  !isNaN(tableSelectionColumnWidth)
+    ? tableSelectionColumnWidth
     : 47;
+
   return [
     {
       id: '__ui5wcr__internal_selection_column',

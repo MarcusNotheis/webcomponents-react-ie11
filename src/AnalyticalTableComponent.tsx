@@ -5,6 +5,14 @@ import generateData from "./AnalyticalTable/demo/generateData";
 import '@ui5/webcomponents-icons/dist/delete';
 import '@ui5/webcomponents-icons/dist/edit';
 import '@ui5/webcomponents-icons/dist/settings';
+import {TableScaleWidthMode} from "@ui5/webcomponents-react/lib/TableScaleWidthMode";
+import {TableSelectionMode} from "@ui5/webcomponents-react/lib/TableSelectionMode";
+import {TableSelectionBehavior} from "@ui5/webcomponents-react/lib/TableSelectionBehavior";
+import {TableVisibleRowCountMode} from "@ui5/webcomponents-react/lib/TableVisibleRowCountMode";
+import {DefaultNoDataComponent} from "./AnalyticalTable/defaults/NoDataComponent";
+import {DefaultLoadingComponent} from "./AnalyticalTable/defaults/LoadingComponent";
+
+//todo highlight status
 
 const data = generateData(1000)
 
@@ -72,8 +80,38 @@ const columns = [
     }
 ]
 
+//todo in selection mode
+// - rowgroup width is null
+// - added
+
+
+const args = {
+    title: 'Table Title',
+    sortable: true,
+    filterable: true,
+    visibleRows: 15,
+    minRows: 5,
+    // groupable: true,
+    // groupBy: [],
+    // rowHeight: 44,
+    // selectedRowIds: { 3: true },
+    // withRowHighlight: true,
+    // highlightField: 'status',
+    // infiniteScroll: true,
+    // infiniteScrollThreshold: 20,
+    // subRowsKey: 'subRows',
+    // isTreeTable: false,
+    // NoDataComponent: DefaultNoDataComponent,
+    // LoadingComponent: DefaultLoadingComponent,
+    // scaleWidthMode: TableScaleWidthMode.Default,
+    selectionMode: TableSelectionMode.MULTI_SELECT,
+    selectionBehavior: TableSelectionBehavior.ROW_SELECTOR,
+    // overscanCountHorizontal: 5,
+    // visibleRowCountMode: TableVisibleRowCountMode.FIXED
+}
+
 export const AnalyticalTableComponent = () => {
     return (
-        <AnalyticalTable data={data} columns={columns}/>
+        <AnalyticalTable data={data} columns={columns} {...args}/>
     );
 }

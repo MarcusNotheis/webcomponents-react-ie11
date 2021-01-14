@@ -7,7 +7,6 @@ import {AnalyticalTableComponent} from "./AnalyticalTableComponent";
 function App() {
     return (
         <ThemeProvider>
-            <ShellBar primaryTitle='Hallo 123du '/>
             <AnalyticalTableComponent />
         </ThemeProvider>
     );
