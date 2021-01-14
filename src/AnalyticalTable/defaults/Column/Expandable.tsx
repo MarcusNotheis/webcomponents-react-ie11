@@ -48,15 +48,17 @@ export const Expandable = (props) => {
   const style: CSSProperties = {
     paddingLeft
   };
+
+  const rowProps=row.getToggleRowExpandedProps();
   return (
     <>
       {columnIndex === 0 && (row.canExpand || !!webComponentsReactProperties.renderRowSubComponent) ? (
-        <span {...row.getToggleRowExpandedProps({ style })}>
+        <span onClick={rowProps.onClick} title={rowProps.title} style={{...rowProps.style, ...style}}>
           <Icon
             name={`${row.isExpanded ? 'navigation-down-arrow' : 'navigation-right-arrow'}`}
             style={tableGroupExpandCollapseIcon}
           />
-        </span>
+       </span>
       ) : (
         <span style={style} />
       )}

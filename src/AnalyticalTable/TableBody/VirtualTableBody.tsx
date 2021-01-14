@@ -252,7 +252,7 @@ export const VirtualTableBody = (props: VirtualTableBodyProps) => {
                 cell.column.id === '__ui5wcr__internal_navigation_column'
               ) {
                 contentToRender = 'Cell';
-              } else if (isTreeTable || RowSubComponent) {
+              } else if (isTreeTable || !!RowSubComponent) {
                 contentToRender = 'Expandable';
               } else if (cell.isGrouped) {
                 contentToRender = 'Grouped';
