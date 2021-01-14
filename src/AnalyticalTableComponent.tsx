@@ -12,9 +12,7 @@ import {TableVisibleRowCountMode} from "@ui5/webcomponents-react/lib/TableVisibl
 import {DefaultNoDataComponent} from "./AnalyticalTable/defaults/NoDataComponent";
 import {DefaultLoadingComponent} from "./AnalyticalTable/defaults/LoadingComponent";
 
-//todo highlight status
-
-const data = generateData(1000)
+const data = generateData(10, true)
 
 const columns = [
     {
@@ -80,27 +78,22 @@ const columns = [
     }
 ]
 
-//todo in selection mode
-// - rowgroup width is null
-// - added
-
-
 const args = {
-    title: 'Table Title',
-    sortable: true,
-    filterable: true,
-    visibleRows: 15,
-    minRows: 5,
+    // title: 'Table Title',
+    // sortable: true,
+    // filterable: true,
+    // visibleRows: 15,
+    // minRows: 5,
     // groupable: true,
     // groupBy: [],
     // rowHeight: 44,
     // selectedRowIds: { 3: true },
-    withRowHighlight: true,
-    highlightField: 'status',
+    // withRowHighlight: true,
+    // highlightField: 'status',
     // infiniteScroll: true,
     // infiniteScrollThreshold: 20,
     // subRowsKey: 'subRows',
-    // isTreeTable: false,
+    isTreeTable: true,
     // NoDataComponent: DefaultNoDataComponent,
     // LoadingComponent: DefaultLoadingComponent,
     // scaleWidthMode: TableScaleWidthMode.Default,
