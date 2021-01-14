@@ -52,6 +52,7 @@ const styles = {
     position: 'relative',
     overflowX: 'hidden',
     overflowY: 'auto',
+    '-ms-overflow-style': 'none',
     scrollBarWidth: 'none !important',
     '&::-webkit-scrollbar': {
       width: 0,
