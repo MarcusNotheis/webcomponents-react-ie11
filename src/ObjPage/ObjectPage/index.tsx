@@ -43,6 +43,7 @@ import {
   safeGetChildrenArray
 } from './ObjectPageUtils';
 import { useObserveHeights } from './useObserveHeights';
+import { isIE } from "@ui5/webcomponents-react-base/lib/Device.js";
 
 declare const ResizeObserver;
 
@@ -535,7 +536,7 @@ const ObjectPage: FC<ObjectPagePropTypes> = forwardRef((props: ObjectPagePropTyp
         headerPinned={headerPinned}
         setHeaderPinned={setHeaderPinned}
         headerContentHeight={headerContentHeight}
-        style={{ top: noHeader ? 0 : headerPinned ? topHeaderHeight + headerContentHeight : topHeaderHeight }}
+        style={{ top: isIE() || noHeader ? 0 : headerPinned ? topHeaderHeight + headerContentHeight : topHeaderHeight }}
         onToggleHeaderContentVisibility={onToggleHeaderContentVisibility}
         ref={anchorBarRef}
         className={classes.anchorBar}
