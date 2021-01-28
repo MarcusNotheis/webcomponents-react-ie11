@@ -1,5 +1,4 @@
 import { ThemingParameters } from '@ui5/webcomponents-react-base/lib/ThemingParameters';
-import { isIE } from "@ui5/webcomponents-react-base/lib/Device.js";
 
 export const ObjectPageCssVariables = {
   anchorFloat: '--_ui5wcr_ObjectPage_actions_float',
@@ -67,27 +66,21 @@ const styles = {
   header: {
     flexShrink: 0,
     backgroundColor: ThemingParameters.sapObjectHeader_Background,
-    position: isIE() ? 'absolute' : 'sticky',
-    width:'100%',
+    position: 'sticky',
     top: 0,
     zIndex: 2
   },
   contentHeader: {
     backgroundColor: ThemingParameters.sapObjectHeader_Background,
-    position: isIE() ? 'absolute' : 'sticky',
-    width:'100%',
+    position: 'sticky',
     paddingBottom: '0.25rem',
     maxHeight: '500px',
     overflow: 'hidden',
     paddingLeft: '2rem'
   },
   anchorBar: {
-    position: isIE() ? 'absolute' : 'sticky',
-    left: 0,
-    right: 0,
-    margin:"auto",
+    position: 'sticky',
     zIndex: 2,
-    backgroundColor:'transparent',
     '--_ui5_tc_header_box_shadow': 'inset 0px -1px 0 0px rgba(0,0,0,0.15)'
   },
   titleBar: {
