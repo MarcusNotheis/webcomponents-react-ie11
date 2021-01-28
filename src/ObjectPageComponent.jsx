@@ -10,6 +10,13 @@ import {ValueState} from "@ui5/webcomponents-react/lib/ValueState";
 import {ObjectPage} from "./ObjPage/ObjectPage";
 import {ObjectPageSection} from "./ObjPage/ObjectPageSection";
 import {ObjectPageSubSection} from "./ObjPage/ObjectPageSubSection";
+import {Breadcrumbs} from "@ui5/webcomponents-react/lib/Breadcrumbs";
+import {Button} from "@ui5/webcomponents-react/lib/Button";
+import {ButtonDesign} from "@ui5/webcomponents-react/lib/ButtonDesign";
+import {ObjectStatus} from "@ui5/webcomponents-react/lib/ObjectStatus";
+import {Form} from "@ui5/webcomponents-react/lib/Form";
+import {FormItem} from "@ui5/webcomponents-react/lib/FormItem";
+import {Text} from "@ui5/webcomponents-react/lib/Text";
 
 const props = {
     mode: "Default",
@@ -38,19 +45,19 @@ const props = {
             </FlexBox>
         </>
     ),
-    // breadcrumbs: (
-    //     <Breadcrumbs currentLocationText="Employee Details">
-    //         <Link>Manager Cockpit</Link>
-    //         <Link>My Team</Link>
-    //     </Breadcrumbs>
-    // ),
-    // headerActions: [
-    //     <Button key="1" design={ButtonDesign.Emphasized}>
-    //         Primary Action
-    //     </Button>,
-    //     <Button key="2">Action</Button>
-    // ],
-    // keyInfos: <ObjectStatus state={ValueState.Success}>employed</ObjectStatus>,
+    breadcrumbs: (
+        <Breadcrumbs currentLocationText="Employee Details">
+            <Link>Manager Cockpit</Link>
+            <Link>My Team</Link>
+        </Breadcrumbs>
+    ),
+    headerActions: [
+        <Button key="1" design={ButtonDesign.Emphasized}>
+            Primary Action
+        </Button>,
+        <Button key="2">Action</Button>
+    ],
+    keyInfos: <ObjectStatus state={ValueState.Success}>employed</ObjectStatus>,
     style: { height: '700px' },
 }
 
@@ -58,17 +65,17 @@ export const ObjectPageComponent = () => {
 
     return (  <ObjectPage {...props} >
         <ObjectPageSection title="Goals" id="goals">
-            {/*<Form columnsL={3} columnsXL={3} labelSpanXL={6} labelSpanL={6} columnsM={2} labelSpanM={6}>*/}
-            {/*    <FormItem label="Evangelize the UI framework across the company">*/}
-            {/*        <Text>4 days overdue - Cascaded</Text>*/}
-            {/*    </FormItem>*/}
-            {/*    <FormItem label="Get trained in development management direction">*/}
-            {/*        <Text>Due Nov, 21</Text>*/}
-            {/*    </FormItem>*/}
-            {/*    <FormItem label="Mentor junior developers">*/}
-            {/*        <Text>Due Dec, 31 - Cascaded</Text>*/}
-            {/*    </FormItem>*/}
-            {/*</Form>*/}
+            <Form columnsL={3} columnsXL={3} labelSpanXL={6} labelSpanL={6} columnsM={2} labelSpanM={6}>
+                <FormItem label="Evangelize the UI framework across the company">
+                    <Text>4 days overdue - Cascaded</Text>
+                </FormItem>
+                <FormItem label="Get trained in development management direction">
+                    <Text>Due Nov, 21</Text>
+                </FormItem>
+                <FormItem label="Mentor junior developers">
+                    <Text>Due Dec, 31 - Cascaded</Text>
+                </FormItem>
+            </Form>
         </ObjectPageSection>
         <ObjectPageSection title="Personal" id="personal">
             <ObjectPageSubSection title="Connect" id="personal-connect">
