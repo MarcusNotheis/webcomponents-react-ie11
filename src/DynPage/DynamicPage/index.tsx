@@ -18,11 +18,12 @@ import React, {
   useRef,
   useCallback,
   useState,
-  useEffect
+  useEffect, useMemo
 } from 'react';
 import { DynamicPageAnchorBar } from '../DynamicPageAnchorBar';
 import { useObserveHeights } from '../../ObjPage/ObjectPage/useObserveHeights';
 import styles from './DynamicPage.jss';
+import {isIE} from "@ui5/webcomponents-react-base/lib/Device.js";
 
 export interface DynamicPageProps extends Omit<CommonProps, 'title'> {
   /**
@@ -179,6 +180,30 @@ const DynamicPage: FC<DynamicPageProps> = forwardRef((props: DynamicPageProps, r
     }
   }, [alwaysShowContentHeader]);
 
+  const anchorBarStyles = useMemo(() => {
+    if(isIE()) return {top: 0}
+    return {
+      top:
+          headerState === HEADER_STATES.VISIBLE_PINNED || headerState === HEADER_STATES.VISIBLE
+              ? (headerContentRef?.current?.offsetHeight ?? 0) + topHeaderHeight
+              : topHeaderHeight
+    }},[headerState,headerContentRef?.current, topHeaderHeight])
+
+  const headerProps = useMemo(()=>{
+    const hProps = {
+      ref: headerContentRef,
+      headerPinned: headerState === HEADER_STATES.VISIBLE_PINNED || headerState === HEADER_STATES.VISIBLE,
+      topHeaderHeight
+    }
+    if(isIE() && (headerState === HEADER_STATES.HIDDEN_PINNED || headerState === HEADER_STATES.HIDDEN)){
+      //@ts-ignore
+      const hPropsStyle = hProps?.style ?? {}
+      return {...hProps, style:{...hPropsStyle, display:'none'}}
+    }
+    return hProps
+  },[headerContentRef, headerState])
+
+
   return (
     <div
       ref={dynamicPageRef}
@@ -193,20 +218,11 @@ const DynamicPage: FC<DynamicPageProps> = forwardRef((props: DynamicPageProps, r
           onToggleHeaderContentVisibility: onToggleHeaderContent
         })}
       {header &&
-        cloneElement(header, {
-          ref: headerContentRef,
-          headerPinned: headerState === HEADER_STATES.VISIBLE_PINNED || headerState === HEADER_STATES.VISIBLE,
-          topHeaderHeight
-        })}
+        cloneElement(header, headerProps)}
       <FlexBox
         className={classes.anchorBar}
         ref={anchorBarRef}
-        style={{
-          top:
-            headerState === HEADER_STATES.VISIBLE_PINNED || headerState === HEADER_STATES.VISIBLE
-              ? (headerContentRef?.current?.offsetHeight ?? 0) + topHeaderHeight
-              : topHeaderHeight
-        }}
+        style={anchorBarStyles}
       >
         <DynamicPageAnchorBar
           headerContentPinnable={headerContentPinnable}

@@ -23,8 +23,8 @@ function App() {
     return (
         <ThemeProvider>
             {/*<AnalyticalTableComponent />*/}
-           <ObjectPageComponent />
-           {/* <DynamicPageComponent />*/}
+           {/*<ObjectPageComponent />*/}
+            <DynamicPageComponent />
         </ThemeProvider>
     );
 }

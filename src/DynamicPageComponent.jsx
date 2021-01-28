@@ -1,9 +1,6 @@
 import React from 'react';
 import {
     Breadcrumbs, ButtonDesign,
-    DynamicPage,
-    DynamicPageHeader,
-    DynamicPageTitle,
     Label,
     Link,
     ObjectStatus
@@ -13,6 +10,9 @@ import {Title} from "@ui5/webcomponents-react/lib/Title";
 import {Badge} from "@ui5/webcomponents-react/lib/Badge";
 import {ValueState} from "@ui5/webcomponents-react/lib/ValueState";
 import {ProductsTable} from "./ProductsTable";
+import {DynamicPage} from "./DynPage/DynamicPage";
+import {DynamicPageTitle} from "./DynPage/DynamicPageTitle";
+import {DynamicPageHeader} from "./DynPage/DynamicPageHeader";
 
 export const DynamicPageComponent = () => {
 
