@@ -19,18 +19,9 @@ import { ObjectPageComponent} from "./ObjectPageComponent";
 import {DynamicPageComponent} from "./DynamicPageComponent";
 import {GridComponent} from "./GridComponents";
 import {FormComponent} from "./FormComponent";
-import cssVars from 'css-vars-ponyfill';
 
 
 function App() {
-    // useEffect(() => {
-    //        cssVars({
-    //             rootElement: document.head,
-    //             include: 'style[data-ui5-webcomponents-react-sizes],style[data-jss],style,link',
-    //             watch: true,
-    //             // silent: true
-    //         });
-    // }, []);
     return (
         <ThemeProvider>
             <FormComponent />
