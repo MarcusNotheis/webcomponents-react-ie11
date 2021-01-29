@@ -27,6 +27,9 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "resolutions": {
+    "css-vars-ponyfill": "2.4.1"
+  },
   "browserslist": {
     "production": [
       ">0.2%",

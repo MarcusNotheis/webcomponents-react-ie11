@@ -4,6 +4,8 @@ import { useConsolidatedRef, usePassThroughHtmlProps } from '@ui5/webcomponents-
 import { StyleClassHelper } from '@ui5/webcomponents-react-base/lib/StyleClassHelper';
 import { Title } from '@ui5/webcomponents-react/lib/Title';
 import { TitleLevel } from '@ui5/webcomponents-react/lib/TitleLevel';
+import ResizeObserver from 'resize-observer-polyfill';
+
 import React, {
   Children,
   cloneElement,

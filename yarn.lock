@@ -3814,10 +3814,10 @@ css-tree@^1.0.0:
     mdn-data "2.0.14"
     source-map "^0.6.1"
 
-css-vars-ponyfill@^2.1.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/css-vars-ponyfill/-/css-vars-ponyfill-2.4.2.tgz#2ae8ea0ea5dfeb0afb5ac8f5c3b4247615a5ff69"
-  integrity sha512-kp8Ufs7jJDoaSym1hw/deawtakLJJTAQMB4ZgkdyOwCTJHqEClbpXI910ovQU4Guxt37EcdRiqppG9ihFyCjPQ==
+css-vars-ponyfill@2.4.1, css-vars-ponyfill@^2.1.2:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/css-vars-ponyfill/-/css-vars-ponyfill-2.4.1.tgz#c711d71253443b77457ad50a6a21c8cc8a7972fc"
+  integrity sha512-duoN5j10VJPdPUgo/H4PwvxhSxhJWgfymjeIGpTA7+KzQ2AmeFHnlKwrCYC9Ii+HUpC8BrIS5fhwcuaNOs/Hrg==
 
 css-vendor@^2.0.8:
   version "2.0.8"
