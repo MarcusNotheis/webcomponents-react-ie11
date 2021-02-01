@@ -20,6 +20,10 @@ export const DynamicPageTitleStyles = {
       backgroundColor: ThemingParameters.sapTile_Active_Background
     }
   },
+  iEClass:{
+    position:'fixed',
+    width:'100%'
+  },
   breadcrumbs: {
     padding: '0.5rem 0 0.25rem 0'
   },

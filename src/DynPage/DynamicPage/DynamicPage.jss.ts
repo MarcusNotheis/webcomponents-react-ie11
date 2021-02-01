@@ -26,13 +26,17 @@ const styles = {
     }
   },
   anchorBar: {
-    position: isIE() ? 'relative' : 'sticky',
+    position:'sticky',
     boxShadow: ThemingParameters.sapContent_HeaderShadow,
     height: '1px',
     zIndex: 2,
     '& > section[role="navigation"]': {
       top: 0
     }
+  },
+  iEClass:{
+    position:'fixed',
+    width:'100%'
   },
   contentContainer: {
     ...sapUiResponsiveContentPadding,

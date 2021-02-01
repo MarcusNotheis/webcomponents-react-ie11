@@ -14,5 +14,9 @@ export const DynamicPageHeaderStyles = {
     display: `var(${DynamicPageCssVariables.headerDisplay})`,
     maxHeight: '500px',
     overflow: 'hidden'
+  },
+  iEClass:{
+    position:'fixed',
+    width:'100%'
   }
 };

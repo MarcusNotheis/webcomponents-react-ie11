@@ -27,8 +27,8 @@ function App() {
             {/*<FormComponent />*/}
             {/*<GridComponent />*/}
             {/*<AnalyticalTableComponent />*/}
-           <ObjectPageComponent />
-            {/*<DynamicPageComponent />*/}
+           {/*<ObjectPageComponent />*/}
+            <DynamicPageComponent />
         </ThemeProvider>
     );
 }

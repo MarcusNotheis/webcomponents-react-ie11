@@ -181,7 +181,6 @@ const DynamicPage: FC<DynamicPageProps> = forwardRef((props: DynamicPageProps, r
   }, [alwaysShowContentHeader]);
 
   const anchorBarStyles = useMemo(() => {
-    if(isIE()) return {top: 0}
     return {
       top:
           headerState === HEADER_STATES.VISIBLE_PINNED || headerState === HEADER_STATES.VISIBLE
@@ -195,14 +194,14 @@ const DynamicPage: FC<DynamicPageProps> = forwardRef((props: DynamicPageProps, r
       headerPinned: headerState === HEADER_STATES.VISIBLE_PINNED || headerState === HEADER_STATES.VISIBLE,
       topHeaderHeight
     }
-    if(isIE() && (headerState === HEADER_STATES.HIDDEN_PINNED || headerState === HEADER_STATES.HIDDEN)){
-      //@ts-ignore
-      const hPropsStyle = hProps?.style ?? {}
-      return {...hProps, style:{...hPropsStyle, display:'none'}}
-    }
+
     return hProps
   },[headerContentRef, headerState])
 
+  const anchorBarClasses = StyleClassHelper.of(classes.anchorBar);
+  if(isIE()){
+    anchorBarClasses.put(classes.iEClass)
+  }
 
   return (
     <div
@@ -220,7 +219,7 @@ const DynamicPage: FC<DynamicPageProps> = forwardRef((props: DynamicPageProps, r
       {header &&
         cloneElement(header, headerProps)}
       <FlexBox
-        className={classes.anchorBar}
+        className={anchorBarClasses.className}
         ref={anchorBarRef}
         style={anchorBarStyles}
       >
@@ -234,7 +233,7 @@ const DynamicPage: FC<DynamicPageProps> = forwardRef((props: DynamicPageProps, r
           onHoverToggleButton={onHoverToggleButton}
         />
       </FlexBox>
-      <div className={classes.contentContainer}>{children}</div>
+      <div className={classes.contentContainer} style={{marginTop:isIE() ? `${headerContentHeight + topHeaderHeight +34 }px` : 0}} >{children}</div>
     </div>
   );
 });
