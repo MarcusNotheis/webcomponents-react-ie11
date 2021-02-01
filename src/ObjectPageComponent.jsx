@@ -65,17 +65,27 @@ export const ObjectPageComponent = () => {
 
     return (  <ObjectPage {...props} >
         <ObjectPageSection title="Goals" id="goals">
-            <Form columnsL={3} columnsXL={3} labelSpanXL={6} labelSpanL={6} columnsM={2} labelSpanM={6}>
-                <FormItem label="Evangelize the UI framework across the company">
-                    <Text>4 days overdue - Cascaded</Text>
-                </FormItem>
-                <FormItem label="Get trained in development management direction">
-                    <Text>Due Nov, 21</Text>
-                </FormItem>
-                <FormItem label="Mentor junior developers">
-                    <Text>Due Dec, 31 - Cascaded</Text>
-                </FormItem>
-            </Form>
+                CONTENT 1
+            <br />
+            <br />
+            <br />
+            <br />
+            CONTENT 1.1
+            <br />
+            <br />
+            <br />
+            <br />
+            CONTENT 1.2
+            <br />
+            <br />
+            <br />
+            <br />
+            CONTENT 1.3
+            <br />
+            <br />
+            <br />
+            <br />
+            CONTENT 1.4
         </ObjectPageSection>
         <ObjectPageSection title="Personal" id="personal">
             <ObjectPageSubSection title="Connect" id="personal-connect">

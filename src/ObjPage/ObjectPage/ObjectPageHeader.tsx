@@ -10,6 +10,8 @@ import { ToolbarSpacer } from '@ui5/webcomponents-react/lib/ToolbarSpacer';
 import { ToolbarStyle } from '@ui5/webcomponents-react/lib/ToolbarStyle';
 import React, { CSSProperties, forwardRef, ReactElement, ReactNode, RefObject, useMemo } from 'react';
 import { safeGetChildrenArray } from './ObjectPageUtils';
+import {StyleClassHelper} from "@ui5/webcomponents-react-base/lib/StyleClassHelper";
+import {isIE} from "@ui5/webcomponents-react-base/lib/Device.js";
 
 interface Props {
   image: string | ReactElement;
@@ -65,7 +67,7 @@ export const ObjectPageHeader = forwardRef((props: Props, ref: RefObject<HTMLDiv
   }, [image, classes.headerImage, classes.image, imageShapeCircle]);
 
   const headerStyles = useMemo<CSSProperties>(() => {
-    if (headerPinned) {
+    if (headerPinned || isIE()) {
       return {
         top: `${topHeaderHeight}px`,
         zIndex: 1
@@ -124,8 +126,13 @@ export const ObjectPageHeader = forwardRef((props: Props, ref: RefObject<HTMLDiv
     );
   }
 
+  const headerClasses = StyleClassHelper.of(classes.contentHeader);
+  if(isIE()){
+    headerClasses.put(classes.iEClass)
+  }
+
   return (
-    <div style={headerStyles} className={classes.contentHeader} ref={ref}>
+    <div style={headerStyles} className={headerClasses.toString()} ref={ref}>
       {renderedHeaderContent}
     </div>
   );

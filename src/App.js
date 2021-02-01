@@ -24,10 +24,10 @@ import {FormComponent} from "./FormComponent";
 function App() {
     return (
         <ThemeProvider>
-            <FormComponent />
+            {/*<FormComponent />*/}
             {/*<GridComponent />*/}
             {/*<AnalyticalTableComponent />*/}
-           {/*<ObjectPageComponent />*/}
+           <ObjectPageComponent />
             {/*<DynamicPageComponent />*/}
         </ThemeProvider>
     );

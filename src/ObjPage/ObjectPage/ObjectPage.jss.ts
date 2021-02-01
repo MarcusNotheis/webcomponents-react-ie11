@@ -68,9 +68,13 @@ const styles = {
     //todo for what?
     flexShrink: 0,
     backgroundColor: ThemingParameters.sapObjectHeader_Background,
-    position: isIE() ? 'relative' : 'sticky',
+    position: 'sticky',
     top: 0,
     zIndex: 2
+  },
+  iEClass:{
+    position:'fixed',
+    width:'100%'
   },
   contentHeader: {
     backgroundColor: ThemingParameters.sapObjectHeader_Background,
@@ -80,7 +84,7 @@ const styles = {
     paddingLeft: '2rem'
   },
   anchorBar: {
-    position: isIE() ? 'relative' : 'sticky',
+    position: 'sticky',
     zIndex: 2,
     '--_ui5_tc_header_box_shadow': 'inset 0px -1px 0 0px rgba(0,0,0,0.15)'
   },
