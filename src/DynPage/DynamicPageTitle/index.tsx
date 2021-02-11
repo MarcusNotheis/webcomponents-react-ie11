@@ -79,11 +79,11 @@ const DynamicPageTitle: FC<DynamicPageTitleProps> = forwardRef((props: InternalP
   } = props;
 
   const classes = useStyles();
-  const containerClasses = StyleClassHelper.of(classes.container)
+  const containerClasses = StyleClassHelper.of(classes.container);
   if(isIE()){
     containerClasses.put(classes.iEClass)
   }
-  containerClasses.putIfPresent(className);
+  containerClasses.putIfPresent(className)
   const passThroughProps = usePassThroughHtmlProps(props, ['onToggleHeaderContentVisibility']);
 
   return (

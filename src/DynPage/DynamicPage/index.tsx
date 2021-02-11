@@ -1,5 +1,9 @@
 import { createUseStyles } from 'react-jss';
-import { useConsolidatedRef, usePassThroughHtmlProps } from '@ui5/webcomponents-react-base/lib/hooks';
+import {
+  useConsolidatedRef,
+  useIsomorphicLayoutEffect,
+  usePassThroughHtmlProps
+} from '@ui5/webcomponents-react-base/lib/hooks';
 import { StyleClassHelper } from '@ui5/webcomponents-react-base/lib/StyleClassHelper';
 import { ThemingParameters } from '@ui5/webcomponents-react-base/lib/ThemingParameters';
 import { CommonProps } from '@ui5/webcomponents-react/interfaces/CommonProps';
@@ -18,7 +22,7 @@ import React, {
   useRef,
   useCallback,
   useState,
-  useEffect, useMemo
+  useEffect
 } from 'react';
 import { DynamicPageAnchorBar } from '../DynamicPageAnchorBar';
 import { useObserveHeights } from '../../ObjPage/ObjectPage/useObserveHeights';
@@ -60,12 +64,13 @@ export interface DynamicPageProps extends Omit<CommonProps, 'title'> {
  * Defines the current state of the component.
  */
 enum HEADER_STATES {
-  AUTO,
-  VISIBLE_PINNED,
-  HIDDEN_PINNED,
-  VISIBLE,
-  HIDDEN
+  AUTO = 'AUTO',
+  VISIBLE_PINNED = 'VISIBLE_PINNED',
+  HIDDEN_PINNED = 'HIDDEN_PINNED',
+  VISIBLE = 'VISIBLE',
+  HIDDEN = 'HIDDEN'
 }
+const useStyles = createUseStyles(styles, { name: 'DynamicPage' });
 /**
  * The dynamic page is a generic layout control designed to support various floorplans and use cases.
  * The content of both the header and the page can differ from floorplan to floorplan.
@@ -83,14 +88,16 @@ const DynamicPage: FC<DynamicPageProps> = forwardRef((props: DynamicPageProps, r
     showHideHeaderButton,
     headerContentPinnable,
     alwaysShowContentHeader,
-    children
+    children,
+    className
   } = props;
   const passThroughProps = usePassThroughHtmlProps(props);
 
-  const useStyles = createUseStyles(styles, { name: 'DynamicPage' });
+
   const classes = useStyles();
   const dynamicPageClasses = StyleClassHelper.of(classes.dynamicPage, GlobalStyleClasses.sapScrollBar);
   dynamicPageClasses.put(classes[`background${backgroundDesign}`]);
+  dynamicPageClasses.putIfPresent(className);
 
   const anchorBarRef: RefObject<HTMLDivElement> = useRef();
   const dynamicPageRef: RefObject<HTMLDivElement> = useConsolidatedRef(ref);
@@ -98,13 +105,8 @@ const DynamicPage: FC<DynamicPageProps> = forwardRef((props: DynamicPageProps, r
   const headerContentRef: RefObject<HTMLDivElement> = useRef();
 
   const [headerState, setHeaderState] = useState<HEADER_STATES>(
-    alwaysShowContentHeader ? HEADER_STATES.VISIBLE_PINNED : HEADER_STATES.AUTO
+      alwaysShowContentHeader ? HEADER_STATES.VISIBLE_PINNED : isIE() ? HEADER_STATES.VISIBLE : HEADER_STATES.AUTO
   );
-  const headerStateRef = React.useRef(headerState);
-  const setHeaderStateRef = (data) => {
-    headerStateRef.current = data;
-    setHeaderState(data);
-  };
 
   // observe heights of header parts
   const { topHeaderHeight, headerContentHeight } = useObserveHeights(
@@ -119,31 +121,33 @@ const DynamicPage: FC<DynamicPageProps> = forwardRef((props: DynamicPageProps, r
     dynamicPageClasses.put(classes.headerCollapsed);
   }
 
+  useEffect(() => {
+    const oneTimeScrollHandler = () => {
+      if(!isIE()){
+        setHeaderState(HEADER_STATES.AUTO);
+      }
+    };
+    if (headerState === HEADER_STATES.VISIBLE || headerState === HEADER_STATES.HIDDEN) {
+      dynamicPageRef.current?.addEventListener('scroll', oneTimeScrollHandler, { once: true });
+    }
+    return () => {
+      dynamicPageRef.current?.removeEventListener('scroll', oneTimeScrollHandler);
+    };
+  }, [dynamicPageRef, headerState]);
+
+
   const onToggleHeaderContentVisibility = useCallback(
     (e, element?: Element | HTMLElement) => {
-      let srcElement = e.target;
-      if (element) {
-        srcElement = element;
-      }
+      const srcElement = element ?? e.target;
       const shouldHideHeader = srcElement.icon === 'slim-arrow-up';
-      let headerStateResetOnScroll = false;
-      setHeaderStateRef((oldState) => {
+      setHeaderState((oldState) => {
         if (oldState === HEADER_STATES.VISIBLE_PINNED || oldState === HEADER_STATES.HIDDEN_PINNED) {
           return shouldHideHeader ? HEADER_STATES.HIDDEN_PINNED : HEADER_STATES.VISIBLE_PINNED;
         }
-        headerStateResetOnScroll = true;
         return shouldHideHeader ? HEADER_STATES.HIDDEN : HEADER_STATES.VISIBLE;
       });
-      dynamicPageRef.current.addEventListener(
-        'scroll',
-        () => {
-          if (headerStateRef.current !== HEADER_STATES.VISIBLE_PINNED && headerStateResetOnScroll)
-            setHeaderStateRef(HEADER_STATES.AUTO);
-        },
-        { once: true }
-      );
     },
-    [dynamicPageRef.current, headerStateRef.current, classes.headerCollapsed]
+    [setHeaderState]
   );
 
   const onHoverToggleButton = useCallback(
@@ -164,45 +168,26 @@ const DynamicPage: FC<DynamicPageProps> = forwardRef((props: DynamicPageProps, r
   const handleHeaderPinnedChange = useCallback(
     (headerWillPin) => {
       if (headerWillPin) {
-        setHeaderStateRef(HEADER_STATES.VISIBLE_PINNED);
+        setHeaderState(HEADER_STATES.VISIBLE_PINNED);
       } else {
-        setHeaderStateRef(HEADER_STATES.AUTO);
+        setHeaderState(HEADER_STATES.VISIBLE);
       }
     },
-    [setHeaderStateRef]
+    [setHeaderState]
   );
 
   useEffect(() => {
     if (alwaysShowContentHeader) {
       setHeaderState(HEADER_STATES.VISIBLE_PINNED);
-    } else {
-      setHeaderStateRef(HEADER_STATES.AUTO);
+    } else if (!isIE()) {
+      setHeaderState(HEADER_STATES.AUTO);
     }
-  }, [alwaysShowContentHeader]);
-
-  const anchorBarStyles = useMemo(() => {
-    return {
-      top:
-          headerState === HEADER_STATES.VISIBLE_PINNED || headerState === HEADER_STATES.VISIBLE
-              ? (headerContentRef?.current?.offsetHeight ?? 0) + topHeaderHeight
-              : topHeaderHeight
-    }},[headerState,headerContentRef?.current, topHeaderHeight])
-
-  const headerProps = useMemo(()=>{
-    const hProps = {
-      ref: headerContentRef,
-      headerPinned: headerState === HEADER_STATES.VISIBLE_PINNED || headerState === HEADER_STATES.VISIBLE,
-      topHeaderHeight
-    }
-
-    return hProps
-  },[headerContentRef, headerState])
+  }, [alwaysShowContentHeader, setHeaderState]);
 
   const anchorBarClasses = StyleClassHelper.of(classes.anchorBar);
   if(isIE()){
     anchorBarClasses.put(classes.iEClass)
   }
-
   return (
     <div
       ref={dynamicPageRef}
@@ -217,11 +202,20 @@ const DynamicPage: FC<DynamicPageProps> = forwardRef((props: DynamicPageProps, r
           onToggleHeaderContentVisibility: onToggleHeaderContent
         })}
       {header &&
-        cloneElement(header, headerProps)}
+        cloneElement(header, {
+          ref: headerContentRef,
+          headerPinned: headerState === HEADER_STATES.VISIBLE_PINNED || headerState === HEADER_STATES.VISIBLE,
+          topHeaderHeight
+        })}
       <FlexBox
         className={anchorBarClasses.className}
         ref={anchorBarRef}
-        style={anchorBarStyles}
+        style={{
+          top:
+            headerState === HEADER_STATES.VISIBLE_PINNED || headerState === HEADER_STATES.VISIBLE
+              ? (headerContentRef?.current?.offsetHeight ?? 0) + topHeaderHeight
+              : topHeaderHeight
+        }}
       >
         <DynamicPageAnchorBar
           headerContentPinnable={headerContentPinnable}
@@ -233,7 +227,12 @@ const DynamicPage: FC<DynamicPageProps> = forwardRef((props: DynamicPageProps, r
           onHoverToggleButton={onHoverToggleButton}
         />
       </FlexBox>
-      <div className={classes.contentContainer} style={{marginTop:isIE() ? `${headerContentHeight + topHeaderHeight +34 }px` : 0}} >{children}</div>
+        {isIE() && <div className={classes.iEBackgroundElement} style={{
+          height: `${headerContentHeight + topHeaderHeight}px`,
+          width:`calc(100% - ${dynamicPageRef?.current?.clientHeight < dynamicPageRef?.current?.scrollHeight ? '18px' : '0px'})`
+        }}
+        />}
+      <div className={classes.contentContainer} style={{marginTop: isIE() ? `${headerContentHeight + topHeaderHeight + 34 }px`: 0}}>{children}</div>
     </div>
   );
 });

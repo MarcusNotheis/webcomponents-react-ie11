@@ -13,6 +13,10 @@ import {ProductsTable} from "./ProductsTable";
 import {DynamicPage} from "./DynPage/DynamicPage";
 import {DynamicPageTitle} from "./DynPage/DynamicPageTitle";
 import {DynamicPageHeader} from "./DynPage/DynamicPageHeader";
+import '@ui5/webcomponents-icons/dist/full-screen';
+import '@ui5/webcomponents-icons/dist/exit-full-screen';
+import '@ui5/webcomponents-icons/dist/decline';
+import '@ui5/webcomponents-icons/dist/action';
 
 export const DynamicPageComponent = () => {
 
@@ -67,6 +71,7 @@ export const DynamicPageComponent = () => {
             </DynamicPageHeader>
         }
     >
+         asdasdas
         <ProductsTable />
     </DynamicPage>);
 }

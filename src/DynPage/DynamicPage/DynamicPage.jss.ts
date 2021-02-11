@@ -1,6 +1,5 @@
 import { sapUiResponsiveContentPadding } from '@ui5/webcomponents-react-base/lib/spacing';
 import { ThemingParameters } from '@ui5/webcomponents-react-base/lib/ThemingParameters';
-import {isIE} from "@ui5/webcomponents-react-base/lib/Device.js";
 
 export const DynamicPageCssVariables = {
   headerDisplay: '--ui5wcr_DynamicPage_header_display'
@@ -17,7 +16,7 @@ const styles = {
     backgroundColor: ThemingParameters.sapBackgroundColor,
     overflowX: 'hidden',
     overflowY: 'auto',
-    [DynamicPageCssVariables.headerDisplay]: 'block'
+    [DynamicPageCssVariables.headerDisplay]: 'block',
   },
   headerCollapsed: {
     [DynamicPageCssVariables.headerDisplay]: 'none',
@@ -26,7 +25,7 @@ const styles = {
     }
   },
   anchorBar: {
-    position:'sticky',
+    position: 'sticky',
     boxShadow: ThemingParameters.sapContent_HeaderShadow,
     height: '1px',
     zIndex: 2,
@@ -36,7 +35,12 @@ const styles = {
   },
   iEClass:{
     position:'fixed',
-    width:'100%'
+    //page width - scrollbar
+    width:'calc(100% - 18px)',
+  },
+  iEBackgroundElement:{
+    position:'fixed',
+    backgroundColor: ThemingParameters.sapObjectHeader_Background,
   },
   contentContainer: {
     ...sapUiResponsiveContentPadding,

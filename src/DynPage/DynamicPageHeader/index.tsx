@@ -46,11 +46,12 @@ const DynamicPageHeader: FC<DynamicPageHeaderProps> = forwardRef((props: Interna
   }, [headerPinned, topHeaderHeight, style]);
 
   const classes = useStyles();
-  const classNames = StyleClassHelper.of(classes.header)
+  const classNames = StyleClassHelper.of(classes.header);
   if(isIE()){
     classNames.put(classes.iEClass)
   }
-  classNames.putIfPresent(className);
+  classNames.putIfPresent(className)
+
   return (
     <div
       title={tooltip}
