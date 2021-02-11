@@ -65,7 +65,6 @@ const styles = {
   },
   // header
   header: {
-    //todo for what?
     flexShrink: 0,
     backgroundColor: ThemingParameters.sapObjectHeader_Background,
     position: 'sticky',
@@ -74,14 +73,22 @@ const styles = {
   },
   iEClass:{
     position:'fixed',
-    width:'100%'
+    width:'calc(100% - 18px)',
+  },
+  iEClassHeader:{
+    width:'calc(100% - 18px - 2rem)'
+  },
+  iEBackgroundElement:{
+    position:'fixed',
+    backgroundColor: ThemingParameters.sapObjectHeader_Background,
   },
   contentHeader: {
     backgroundColor: ThemingParameters.sapObjectHeader_Background,
     paddingBottom: '0.25rem',
     maxHeight: '500px',
     overflow: 'hidden',
-    paddingLeft: '2rem'
+    paddingLeft: '2rem',
+    position: 'sticky',
   },
   anchorBar: {
     position: 'sticky',
